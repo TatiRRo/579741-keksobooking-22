@@ -1,11 +1,17 @@
-
-
 import { mapFilters, data, drawPin, markersDb} from './map.js';
 
-const housingTypeInput = mapFilters.querySelector('#housing-type');
-const housingPriceInput = mapFilters.querySelector('#housing-price');
-const housingRoomsInput = mapFilters.querySelector('#housing-rooms');
-const housingGuestsInput = mapFilters.querySelector('#housing-guests');
+const DEFAULT_FILTER_VALUE = 'any';
+const ROOM_MAX_PRICE = 50000;
+const ROOM_MIN_PRICE = 10000;
+const HIGH_PRICE = 'high';
+const MIDDLE_PRICE = 'middle';
+const LOW_PRICE = 'low';
+
+
+const housingTypeSelect = mapFilters.querySelector('#housing-type');
+const housingPriceSelect = mapFilters.querySelector('#housing-price');
+const housingRoomsSelect = mapFilters.querySelector('#housing-rooms');
+const housingGuestsSelect = mapFilters.querySelector('#housing-guests');
 const showFiltredAds = () => {
   markersDb.forEach(marker => marker.remove());
   const filteredAds = toFilterAds();
@@ -13,70 +19,32 @@ const showFiltredAds = () => {
 };
 
 const filterState = {
-  type: 'any',
-  price: 'any',
-  rooms: 'any',
-  guests: 'any',
+  type: DEFAULT_FILTER_VALUE,
+  price: DEFAULT_FILTER_VALUE,
+  rooms: DEFAULT_FILTER_VALUE,
+  guests: DEFAULT_FILTER_VALUE,
 }
 
 const toFilterAds = () => {
-  return data.filter(function(ads) {
-    if (ads.offer.type === filterState.type){
-      return ads;
-    }
-    if (filterState.type === 'any'){
-      return ads;
-    }
-  })
+  return data
     .filter(function(ads) {
-
-      if ( filterState.price === 'any'){
-        return ads
-      }
-
-      if ( filterState.price === 'low'){
-        if(ads.offer.price <= 10000){
-          return ads
-        }
-      }
-
-      if ( filterState.price === 'middle'){
-        if(ads.offer.price >= 10000 && ads.offer.price <= 50000){
-          return ads
-        }
-      }
-
-      if ( filterState.price === 'high'){
-        if(ads.offer.price >= 50000){
-          return ads
-        }
+      const filteredByType = ads.offer.type === filterState.type || filterState.type === DEFAULT_FILTER_VALUE;
+      const filteredByRooms = ads.offer.rooms === +(filterState.rooms) || filterState.rooms === DEFAULT_FILTER_VALUE;
+      const filteredByGuests = ads.offer.guests === +(filterState.guests) || filterState.guests === DEFAULT_FILTER_VALUE;
+      const filteredByPrice =
+      filterState.price === DEFAULT_FILTER_VALUE ||
+      (filterState.price === HIGH_PRICE && ads.offer.price <= ROOM_MIN_PRICE) ||
+      (filterState.price === MIDDLE_PRICE && ads.offer.price >= ROOM_MIN_PRICE && ads.offer.price <= ROOM_MAX_PRICE) ||
+      (filterState.price === LOW_PRICE && ads.offer.price >= ROOM_MAX_PRICE);
+      if (filteredByType && filteredByRooms && filteredByGuests && filteredByPrice) {
+        return true;
       }
     })
-
-    .filter(function(ads) {
-
-      if (ads.offer.rooms === +(filterState.rooms)){
-        return ads;
-      }
-
-      if (filterState.rooms === 'any'){
-        return ads;
-      }
-    })
-
-    .filter(function(ads) {
-      if (ads.offer.guests === +(filterState.guests)){
-        return ads;
-      }
-      if (filterState.guests === 'any'){
-        return ads;
-      }
-    });
 }
 
 
-housingTypeInput.addEventListener('change', () => {
-  const housingTypeValue = housingTypeInput.options[housingTypeInput.selectedIndex].value;
+housingTypeSelect.addEventListener('change', () => {
+  const housingTypeValue = housingTypeSelect.value;
   filterState.type = housingTypeValue;
 
   showFiltredAds();
@@ -84,8 +52,8 @@ housingTypeInput.addEventListener('change', () => {
 
 
 
-housingPriceInput.addEventListener('change', () => {
-  const housingPriceValue = housingPriceInput.options[housingPriceInput.selectedIndex].value;
+housingPriceSelect.addEventListener('change', () => {
+  const housingPriceValue = housingPriceSelect.value;
   filterState.price = housingPriceValue;
 
   showFiltredAds();
@@ -94,8 +62,8 @@ housingPriceInput.addEventListener('change', () => {
 
 
 
-housingRoomsInput.addEventListener('change', () => {
-  const housingPriceValue = housingRoomsInput.options[housingRoomsInput.selectedIndex].value;
+housingRoomsSelect.addEventListener('change', () => {
+  const housingPriceValue = housingRoomsSelect.value;
   filterState.rooms = housingPriceValue;
 
   showFiltredAds();
@@ -104,8 +72,8 @@ housingRoomsInput.addEventListener('change', () => {
 
 
 
-housingGuestsInput.addEventListener('change', () => {
-  const housingPriceValue = housingRoomsInput.options[housingGuestsInput.selectedIndex].value;
+housingGuestsSelect.addEventListener('change', () => {
+  const housingPriceValue = housingRoomsSelect.value;
   filterState.guests = housingPriceValue;
 
   showFiltredAds();

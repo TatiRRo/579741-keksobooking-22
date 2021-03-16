@@ -1,7 +1,3 @@
-// import './data.js';
-
-const card = document.querySelector('#card');
-
 const mapTypeToHeader = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -9,6 +5,7 @@ const mapTypeToHeader = {
   palace: 'Дворец',
 }
 
+const card = document.querySelector('#card');
 const createCard = (data) => {
   const cloneCard = card.cloneNode(true).content.querySelector('.popup')
   const popupTitle = cloneCard.querySelector('.popup__title');
