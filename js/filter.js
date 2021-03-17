@@ -1,4 +1,5 @@
 import { mapFilters, data, drawPin, markersDb} from './map.js';
+import { hasSubArray } from './util.js'
 
 const DEFAULT_FILTER_VALUE = 'any';
 const ROOM_MAX_PRICE = 50000;
@@ -12,6 +13,8 @@ const housingTypeSelect = mapFilters.querySelector('#housing-type');
 const housingPriceSelect = mapFilters.querySelector('#housing-price');
 const housingRoomsSelect = mapFilters.querySelector('#housing-rooms');
 const housingGuestsSelect = mapFilters.querySelector('#housing-guests');
+const housingFeaturesInput = mapFilters.querySelector('#housing-features');
+
 const showFiltredAds = () => {
   markersDb.forEach(marker => marker.remove());
   const filteredAds = toFilterAds();
@@ -23,7 +26,9 @@ const filterState = {
   price: DEFAULT_FILTER_VALUE,
   rooms: DEFAULT_FILTER_VALUE,
   guests: DEFAULT_FILTER_VALUE,
+  features: [],
 }
+
 
 const toFilterAds = () => {
   return data
@@ -36,7 +41,9 @@ const toFilterAds = () => {
       (filterState.price === HIGH_PRICE && ads.offer.price <= ROOM_MIN_PRICE) ||
       (filterState.price === MIDDLE_PRICE && ads.offer.price >= ROOM_MIN_PRICE && ads.offer.price <= ROOM_MAX_PRICE) ||
       (filterState.price === LOW_PRICE && ads.offer.price >= ROOM_MAX_PRICE);
-      if (filteredByType && filteredByRooms && filteredByGuests && filteredByPrice) {
+      const filteredByFeautes =  hasSubArray(ads.offer.features.sort(), filterState.features.sort())
+
+      if (filteredByType && filteredByRooms && filteredByGuests && filteredByPrice && filteredByFeautes) {
         return true;
       }
     })
@@ -51,7 +58,6 @@ housingTypeSelect.addEventListener('change', () => {
 });
 
 
-
 housingPriceSelect.addEventListener('change', () => {
   const housingPriceValue = housingPriceSelect.value;
   filterState.price = housingPriceValue;
@@ -60,21 +66,29 @@ housingPriceSelect.addEventListener('change', () => {
 });
 
 
-
-
 housingRoomsSelect.addEventListener('change', () => {
-  const housingPriceValue = housingRoomsSelect.value;
-  filterState.rooms = housingPriceValue;
+  const housingRoomsValue = housingRoomsSelect.value;
+  filterState.rooms = housingRoomsValue;
 
   showFiltredAds();
 });
 
 
-
-
 housingGuestsSelect.addEventListener('change', () => {
-  const housingPriceValue = housingRoomsSelect.value;
-  filterState.guests = housingPriceValue;
+  const housingGuestsValue = housingGuestsSelect.value;
+  filterState.guests = housingGuestsValue;
+
+  showFiltredAds();
+});
+
+housingFeaturesInput.addEventListener('change', () => {
+  const checkboxesInput = housingFeaturesInput.querySelectorAll('input');
+  filterState.features = [];
+  for (let i= 0; i< checkboxesInput.length; i++) {
+    if (checkboxesInput[i].checked) {
+      filterState.features.push(checkboxesInput[i].value);
+    }
+  }
 
   showFiltredAds();
 });
