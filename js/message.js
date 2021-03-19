@@ -1,5 +1,8 @@
+const successTemplate = document.querySelector('#succes');
+const errorTemplate = document.querySelector('#error');
+
 const createMessage = (className, textMessage) => {
-  const cardMessage = document.querySelector(`#${className}`);
+  const cardMessage = className === 'success' ? successTemplate : errorTemplate;
   const cloneMessage = cardMessage
     .cloneNode(true)
     .content.querySelector(`.${className}`);
