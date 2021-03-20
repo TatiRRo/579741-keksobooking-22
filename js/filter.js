@@ -41,7 +41,7 @@ const toFilterAds = () => {
       (filterState.price === HIGH_PRICE && ads.offer.price <= ROOM_MIN_PRICE) ||
       (filterState.price === MIDDLE_PRICE && ads.offer.price >= ROOM_MIN_PRICE && ads.offer.price <= ROOM_MAX_PRICE) ||
       (filterState.price === LOW_PRICE && ads.offer.price >= ROOM_MAX_PRICE);
-      const filteredByFeautes =  hasSubArray(ads.offer.features.sort(), filterState.features.sort())
+      const filteredByFeautes =  hasSubArray(ads.offer.features, filterState.features)
 
       if (filteredByType && filteredByRooms && filteredByGuests && filteredByPrice && filteredByFeautes) {
         return true;
@@ -82,13 +82,11 @@ housingGuestsSelect.addEventListener('change', () => {
 });
 
 housingFeaturesInput.addEventListener('change', () => {
-  const checkboxesInput = housingFeaturesInput.querySelectorAll('input');
+  const checkboxesInput = housingFeaturesInput.querySelectorAll('input:checked');
   filterState.features = [];
-  for (let i= 0; i< checkboxesInput.length; i++) {
-    if (checkboxesInput[i].checked) {
-      filterState.features.push(checkboxesInput[i].value);
-    }
-  }
+  checkboxesInput.forEach(checkbox => {
+    filterState.features.push(checkbox.value);
+  })
 
   showFiltredAds();
 });

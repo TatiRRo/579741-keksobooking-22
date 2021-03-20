@@ -17,6 +17,16 @@ const coordinateAdress = document.querySelector('#address');
 const adForm = document.querySelector('.ad-form');
 const adFormFieldsetArray = adForm.children;
 const SEND_DATA_URL = 'https://22.javascript.pages.academy/keksobooking';
+const MIN_PRICE_FLAT = 1000;
+const mapTypePrice = {
+  flat: 1000,
+  bungalow: 0,
+  house: 5000,
+  palace: 10000,
+}
+const allTypeHouse = document.querySelector('#type');
+const inputPrice = document.querySelector('#price');
+
 
 coordinateAdress.setAttribute('readonly', 'true');
 
@@ -54,6 +64,31 @@ adForm.addEventListener('submit', (evt) => {
 adForm.addEventListener('reset', () => {
   setTimeout(() => setAddressValue(LAT_TOKYO, LNG_TOKYO), 0)
 })
+
+
+inputPrice.placeholder = MIN_PRICE_FLAT;
+
+
+allTypeHouse.addEventListener('change', () => {
+  const selectedTypeHouse = allTypeHouse.value;
+  const priceHome = mapTypePrice[selectedTypeHouse];
+  inputPrice.placeholder = priceHome;
+  inputPrice.setAttribute('min', priceHome);
+});
+
+
+const inputTimeIn = document.querySelector('#timein');
+const inputTimeOut = document.querySelector('#timeout');
+
+
+inputTimeIn.addEventListener('change', () => {
+  inputTimeOut.value = inputTimeIn.value;
+});
+
+inputTimeOut.addEventListener('change', () => {
+  inputTimeIn.value = inputTimeOut.value;
+});
+
 
 
 
