@@ -99,7 +99,6 @@ mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();
-
   setAddressValue(lat.toFixed(5), lng.toFixed(5));
 });
 
@@ -111,5 +110,6 @@ export {
   mapFilters,
   data,
   markersDb,
-  drawPin
+  drawPin,
+  mainPinMarker
 };

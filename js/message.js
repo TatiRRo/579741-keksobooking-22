@@ -1,4 +1,4 @@
-const successTemplate = document.querySelector('#succes');
+const successTemplate = document.querySelector('#success');
 const errorTemplate = document.querySelector('#error');
 
 const createMessage = (className, textMessage) => {
