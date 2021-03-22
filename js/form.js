@@ -120,6 +120,7 @@ adForm.addEventListener('reset', () => {
   setTimeout(() => {
     setAddressValue(LAT_TOKYO, LNG_TOKYO)
     capacityGuests.value = mapRoomNumber['1'];
+    inputPrice.placeholder = MIN_PRICE_FLAT;
   }, 0);
 });
 
