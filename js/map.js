@@ -12,6 +12,7 @@ const LAT_TOKYO = 35.6895;
 const LNG_TOKYO = 139.69171;
 const GET_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 const QUANTITY_ADS = 10;
+const DIGITS = 5;
 
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersFieldsetArray = mapFilters.children;
@@ -95,7 +96,7 @@ mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();
-  setAddressValue(lat.toFixed(5), lng.toFixed(5));
+  setAddressValue(lat.toFixed(DIGITS), lng.toFixed(DIGITS));
 });
 
 setAddressValue(LAT_TOKYO, LNG_TOKYO);

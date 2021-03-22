@@ -4,13 +4,10 @@ import {
   mapFilters,
   data,
   drawPin,
-  markersDb,
-  mainPinMarker,
-  LAT_TOKYO,
-  LNG_TOKYO,
-  map
+  markersDb
 } from './map.js';
 import { hasSubArray } from './util.js';
+import { resetFiltersMap } from './form.js';
 
 const DEFAULT_FILTER_VALUE = 'any';
 const ROOM_MAX_PRICE = 50000;
@@ -117,14 +114,5 @@ housingFeaturesInput.addEventListener('change', () => {
 });
 
 resetButton.addEventListener('click', () => {
-  mapFilters.reset();
-  drawPin(data);
-  mainPinMarker.setLatLng([LAT_TOKYO, LNG_TOKYO]);
-  map.setView(
-    {
-      lat: LAT_TOKYO,
-      lng: LNG_TOKYO,
-    },
-    9,
-  );
+  resetFiltersMap();
 });

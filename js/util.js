@@ -18,9 +18,9 @@ const getRandomFloatNumber = (min, max, digits) => {
     throw new Error('Вcе числа должны быть положительными');
   }
   if (
-    typeof min == 'undefined' ||
-    typeof max == 'undefined' ||
-    typeof digits == 'undefined'
+    typeof min === 'undefined' ||
+    typeof max === 'undefined' ||
+    typeof digits === 'undefined'
   ) {
     throw new Error('Введите все параметры');
   }
@@ -48,15 +48,16 @@ const createRandomArrayFromArray = (array) => {
 };
 
 const enableFormElements = (elements) => {
-  for (let i = 0; i < elements.length; i++) {
-    elements[i].removeAttribute('disabled', 'disabled');
-  }
+  [...elements].forEach(element => {
+    element.removeAttribute('disabled', 'disabled');
+  });
 };
 
+
 const disableFormElements = (elements) => {
-  for (let i = 0; i < elements.length; i++) {
-    elements[i].setAttribute('disabled', 'disabled');
-  }
+  [...elements].forEach(element => {
+    element.setAttribute('disabled', 'disabled');
+  });
 };
 
 const hasSubArray = (master, sub) =>

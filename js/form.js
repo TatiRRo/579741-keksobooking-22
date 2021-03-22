@@ -23,6 +23,12 @@ const mapTypePrice = {
   house: 5000,
   palace: 10000,
 };
+const mapRoomNumber = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0],
+};
 
 const MAX_PRICE = 1000000;
 const MAX_LENGHT_INPUT = 100;
@@ -36,23 +42,35 @@ const inputTitle = adForm.querySelector('#title');
 const roomNumber = adForm.querySelector('#room_number');
 const capacityGuests = document.querySelector('#capacity');
 
+inputPrice.placeholder = MIN_PRICE_FLAT;
+capacityGuests.value = mapRoomNumber['1'];
+
+
+
 inputPrice.setAttribute('required', 'required');
 inputPrice.setAttribute('max', MAX_PRICE);
 inputTitle.setAttribute('required', 'required');
 inputTitle.setAttribute('minlength', MIN_LENGHT_INPUT);
 inputTitle.setAttribute('maxlength', MAX_LENGHT_INPUT);
 
-const calcRoomCapacity = () => {
-  const mapRoomNumber = {
-    1: [1],
-    2: [1, 2],
-    3: [1, 2, 3],
-    100: [0],
-  };
+const resetFiltersMap = () => {
+  mapFilters.reset();
+  drawPin(data);
+  mainPinMarker.setLatLng([LAT_TOKYO, LNG_TOKYO]);
+  map.setView(
+    {
+      lat: LAT_TOKYO,
+      lng: LNG_TOKYO,
+    },
+    9,
+  );
+}
 
+const calcRoomCapacity = () => {
   const selectedRoomNumber = roomNumber.value;
   const allowedGuests = mapRoomNumber[selectedRoomNumber];
   const allOptions = capacityGuests.querySelectorAll('option');
+  capacityGuests.value = allowedGuests[0];
 
   allOptions.forEach((option) => {
     const index = allowedGuests.findIndex((el) => el === +option.value);
@@ -85,16 +103,7 @@ const onFormSubmitSuccess = () => {
   createMessage('success');
   adForm.reset();
   setAddressValue(LAT_TOKYO, LNG_TOKYO);
-  mapFilters.reset();
-  drawPin(data);
-  mainPinMarker.setLatLng([LAT_TOKYO, LNG_TOKYO]);
-  map.setView(
-    {
-      lat: LAT_TOKYO,
-      lng: LNG_TOKYO,
-    },
-    9,
-  );
+  resetFiltersMap();
 };
 
 const onFormSubmitError = () => {
@@ -108,10 +117,13 @@ adForm.addEventListener('submit', (evt) => {
 });
 
 adForm.addEventListener('reset', () => {
-  setTimeout(() => setAddressValue(LAT_TOKYO, LNG_TOKYO), 0);
+  setTimeout(() => {
+    setAddressValue(LAT_TOKYO, LNG_TOKYO)
+    capacityGuests.value = mapRoomNumber['1'];
+    inputPrice.placeholder = MIN_PRICE_FLAT;
+  }, 0);
 });
 
-inputPrice.placeholder = MIN_PRICE_FLAT;
 
 allTypeHouse.addEventListener('change', () => {
   const selectedTypeHouse = allTypeHouse.value;
@@ -136,5 +148,6 @@ export {
   adFormFieldsetArray,
   deactivateForm,
   activateForm,
-  setAddressValue
+  setAddressValue,
+  resetFiltersMap
 };
