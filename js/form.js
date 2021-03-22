@@ -46,12 +46,14 @@ inputPrice.placeholder = MIN_PRICE_FLAT;
 capacityGuests.value = mapRoomNumber['1'];
 
 
-
-inputPrice.setAttribute('required', 'required');
 inputPrice.setAttribute('max', MAX_PRICE);
+inputPrice.setAttribute('min', mapTypePrice.flat);
+
+
 inputTitle.setAttribute('required', 'required');
 inputTitle.setAttribute('minlength', MIN_LENGHT_INPUT);
 inputTitle.setAttribute('maxlength', MAX_LENGHT_INPUT);
+inputPrice.setAttribute('required', 'required');
 
 const resetFiltersMap = () => {
   mapFilters.reset();
@@ -64,6 +66,7 @@ const resetFiltersMap = () => {
     },
     9,
   );
+  map.closePopup();
 }
 
 const calcRoomCapacity = () => {

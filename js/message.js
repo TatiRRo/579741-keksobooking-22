@@ -10,13 +10,13 @@ const createMessage = (className, textMessage) => {
   const onClickMessageRemove = () => {
     document.body.removeChild(cloneMessage);
     document.removeEventListener('click', onClickMessageRemove);
-    document.removeEventListener('keydown', escMessageRemove);
+    document.removeEventListener('keydown', onEscapeMessageRemove);
   };
 
-  const escMessageRemove = (evt) => {
+  const onEscapeMessageRemove = (evt) => {
     if (evt.keyCode === 27) {
       document.body.removeChild(cloneMessage);
-      document.removeEventListener('keydown', escMessageRemove);
+      document.removeEventListener('keydown', onEscapeMessageRemove);
       document.removeEventListener('click', onClickMessageRemove);
     }
   };
@@ -34,7 +34,7 @@ const createMessage = (className, textMessage) => {
   document.body.appendChild(cloneMessage);
 
   document.addEventListener('click', onClickMessageRemove);
-  document.addEventListener('keydown', escMessageRemove);
+  document.addEventListener('keydown', onEscapeMessageRemove);
 };
 
 export { createMessage };

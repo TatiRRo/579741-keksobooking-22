@@ -13,18 +13,23 @@ const LNG_TOKYO = 139.69171;
 const GET_DATA_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 const QUANTITY_ADS = 10;
 const DIGITS = 5;
+const PIN_ICON_SIZE = [40, 40];
+const PIN_ICON_ANCHOR = [20, 40];
+const MAINPIN_ICON_SIZE = [50, 50];
+const MAINPIN_ICON_ANCHOR = [25, 50];
 
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersFieldsetArray = mapFilters.children;
 
 const markersDb = [];
 
+
 const drawPin = (ads) => {
   ads.forEach((similarAd) => {
     const pinIcon = L.icon({
       iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+      iconSize: PIN_ICON_SIZE,
+      iconAnchor: PIN_ICON_ANCHOR,
     });
 
     const marker = L.marker(
@@ -77,8 +82,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
-  iconSize: [50, 50],
-  iconAnchor: [25, 50],
+  iconSize: MAINPIN_ICON_SIZE,
+  iconAnchor: MAINPIN_ICON_ANCHOR,
 });
 
 const mainPinMarker = L.marker(

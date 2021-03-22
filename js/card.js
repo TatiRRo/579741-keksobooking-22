@@ -18,6 +18,11 @@ const createCard = (data) => {
   const popupAvatar = cloneCard.querySelector('.popup__avatar');
   const popupFeatures = cloneCard.querySelector('.popup__features');
   const popupPhotos = cloneCard.querySelector('.popup__photos');
+  const popupPhoto = popupPhotos.querySelector('.popup__photo');
+
+  const heightPhoto = popupPhoto.height;
+  const widthPhoto = popupPhoto.width;
+
 
   if (data.offer.title) {
     popupTitle.textContent = data.offer.title;
@@ -83,8 +88,8 @@ const createCard = (data) => {
       const itemPhoto = document.createElement('img');
       itemPhoto.classList.add('popup__photo');
       itemPhoto.src = element;
-      itemPhoto.height = 40;
-      itemPhoto.width = 45;
+      itemPhoto.height = heightPhoto;
+      itemPhoto.width = widthPhoto;
       itemPhoto.alt = 'Фотография жилья';
       photosContainer.appendChild(itemPhoto);
     });

@@ -26,7 +26,7 @@ const resetButton = document.querySelector('.ad-form__reset');
 
 const showFiltredAds = _.debounce(() => {
   markersDb.forEach((marker) => marker.remove());
-  const filteredAds = toFilterAds();
+  const filteredAds = filterAds();
   drawPin(filteredAds);
 }, RERENDER_DELAY);
 
@@ -38,7 +38,7 @@ const filterState = {
   features: [],
 };
 
-const toFilterAds = () => {
+const filterAds = () => {
   return data.filter(function (ads) {
     const filteredByType =
       ads.offer.type === filterState.type ||
