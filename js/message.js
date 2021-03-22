@@ -1,4 +1,4 @@
-const successTemplate = document.querySelector('#succes');
+const successTemplate = document.querySelector('#success');
 const errorTemplate = document.querySelector('#error');
 
 const createMessage = (className, textMessage) => {
@@ -35,6 +35,6 @@ const createMessage = (className, textMessage) => {
 
   document.addEventListener('click', onClickMessageRemove);
   document.addEventListener('keydown', escMessageRemove);
-}
+};
 
 export { createMessage };

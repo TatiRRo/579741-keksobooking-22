@@ -1,12 +1,9 @@
-const sendData = (url,formData,onSuccess,onFail) =>{
-  fetch(
-    url,
-    {
-      method: 'POST',
-      body: formData,
-      'Content-Type': 'multipart/form-data',
-    },
-  )
+const sendData = (url, formData, onSuccess, onFail) => {
+  fetch(url, {
+    method: 'POST',
+    body: formData,
+    'Content-Type': 'multipart/form-data',
+  })
     .then((response) => {
       if (response.ok) {
         onSuccess();
@@ -17,9 +14,9 @@ const sendData = (url,formData,onSuccess,onFail) =>{
     .catch(() => {
       onFail();
     });
-}
+};
 
-const getData = (url,onSuccess,onFail) => {
+const getData = (url, onSuccess, onFail) => {
   fetch(url)
     .then((response) => response.json())
     .then((ads) => {
@@ -30,7 +27,4 @@ const getData = (url,onSuccess,onFail) => {
     });
 };
 
-export {
-  sendData,
-  getData
-};
+export { sendData, getData };

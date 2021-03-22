@@ -16,8 +16,7 @@ const QUANTITY_ADS = 10;
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersFieldsetArray = mapFilters.children;
 
-
-const markersDb = []
+const markersDb = [];
 
 const drawPin = (ads) => {
   ads.forEach((similarAd) => {
@@ -34,15 +33,14 @@ const drawPin = (ads) => {
       },
       { icon: pinIcon },
     );
-    markersDb.push(marker)
+    markersDb.push(marker);
     marker.addTo(map).bindPopup(createCard(similarAd));
   });
-}
-
+};
 
 disableFormElements(mapFiltersFieldsetArray);
 
-let data = null ;
+let data = null;
 
 const getDataSuccess = (ads) => {
   data = ads;
@@ -53,15 +51,13 @@ const getDataError = () => {
   createMessage(
     'error',
     'Произошла ошибка запроса при загрузке данных с сервера',
-  )
+  );
 };
-
 
 const map = L.map('map-canvas')
   .on('load', () => {
     activateForm();
-    getData(GET_DATA_URL,getDataSuccess,getDataError);
-
+    getData(GET_DATA_URL, getDataSuccess, getDataError);
 
     enableFormElements(mapFiltersFieldsetArray);
   })
@@ -99,7 +95,6 @@ mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
   const { lat, lng } = evt.target.getLatLng();
-
   setAddressValue(lat.toFixed(5), lng.toFixed(5));
 });
 
@@ -111,5 +106,7 @@ export {
   mapFilters,
   data,
   markersDb,
-  drawPin
+  drawPin,
+  mainPinMarker,
+  map
 };
