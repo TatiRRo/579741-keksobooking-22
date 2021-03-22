@@ -1,6 +1,15 @@
 /* global _:readonly */
 
-import { mapFilters, data, drawPin, markersDb } from './map.js';
+import {
+  mapFilters,
+  data,
+  drawPin,
+  markersDb,
+  mainPinMarker,
+  LAT_TOKYO,
+  LNG_TOKYO,
+  map
+} from './map.js';
 import { hasSubArray } from './util.js';
 
 const DEFAULT_FILTER_VALUE = 'any';
@@ -110,4 +119,12 @@ housingFeaturesInput.addEventListener('change', () => {
 resetButton.addEventListener('click', () => {
   mapFilters.reset();
   drawPin(data);
+  mainPinMarker.setLatLng([LAT_TOKYO, LNG_TOKYO]);
+  map.setView(
+    {
+      lat: LAT_TOKYO,
+      lng: LNG_TOKYO,
+    },
+    9,
+  );
 });

@@ -1,11 +1,12 @@
 import { disableFormElements, enableFormElements } from './util.js';
 import {
   LAT_TOKYO,
-  LNG_TOKYO
-  // mapFilters,
-  // drawPin,
-  // data,
-  // mainPinMarker
+  LNG_TOKYO,
+  mapFilters,
+  drawPin,
+  data,
+  mainPinMarker,
+  map
 } from './map.js';
 import { createMessage } from './message.js';
 import { sendData } from './api.js';
@@ -84,10 +85,18 @@ const onFormSubmitSuccess = () => {
   createMessage('success');
   adForm.reset();
   setAddressValue(LAT_TOKYO, LNG_TOKYO);
-  // mapFilters.reset();
-  // drawPin(data);
-  // mainPinMarker;
+  mapFilters.reset();
+  drawPin(data);
+  mainPinMarker.setLatLng([LAT_TOKYO, LNG_TOKYO]);
+  map.setView(
+    {
+      lat: LAT_TOKYO,
+      lng: LNG_TOKYO,
+    },
+    9,
+  );
 };
+
 const onFormSubmitError = () => {
   createMessage('error');
 };

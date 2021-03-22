@@ -3,11 +3,11 @@ const mapTypeToHeader = {
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
-}
+};
 
 const card = document.querySelector('#card');
 const createCard = (data) => {
-  const cloneCard = card.cloneNode(true).content.querySelector('.popup')
+  const cloneCard = card.cloneNode(true).content.querySelector('.popup');
   const popupTitle = cloneCard.querySelector('.popup__title');
   const popupTextAddress = cloneCard.querySelector('.popup__text--address');
   const popupTextPrice = cloneCard.querySelector('.popup__text--price');
@@ -18,7 +18,6 @@ const createCard = (data) => {
   const popupAvatar = cloneCard.querySelector('.popup__avatar');
   const popupFeatures = cloneCard.querySelector('.popup__features');
   const popupPhotos = cloneCard.querySelector('.popup__photos');
-
 
   if (data.offer.title) {
     popupTitle.textContent = data.offer.title;
@@ -69,7 +68,6 @@ const createCard = (data) => {
     }
   }
 
-
   if (data.offer.description) {
     popupDescription.textContent = data.offer.description;
   } else {
@@ -99,8 +97,6 @@ const createCard = (data) => {
   }
 
   return cloneCard;
-}
-
-export {
-  createCard
 };
+
+export { createCard };

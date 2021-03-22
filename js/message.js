@@ -35,6 +35,6 @@ const createMessage = (className, textMessage) => {
 
   document.addEventListener('click', onClickMessageRemove);
   document.addEventListener('keydown', escMessageRemove);
-}
+};
 
 export { createMessage };
