@@ -2,9 +2,7 @@ const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const fileChooser = document.querySelector('.ad-form__field input[type=file]');
 const avatarPreview = document.querySelector('.ad-form-header__preview img');
-const housePhotoFileChooser = document.querySelector(
-  '.ad-form__upload input[type=file]',
-);
+const housePhotoFileChooser = document.querySelector('.ad-form__upload input[type=file]');
 const housePhotoPreview = document.querySelector('.ad-form__photo');
 
 const listHousePhotos = document.createElement('ul');
@@ -34,7 +32,7 @@ fileChooser.addEventListener('change', () => {
   }
 });
 
-// Загрузка фото жилья
+// Загрузка фотографий жилья
 
 housePhotoFileChooser.addEventListener('change', () => {
   const file = housePhotoFileChooser.files[0];
@@ -52,8 +50,8 @@ housePhotoFileChooser.addEventListener('change', () => {
       const pictureHousePhoto = document.createElement('img');
       unitHousePhoto.appendChild(pictureHousePhoto);
       pictureHousePhoto.setAttribute('src', 'true');
-      pictureHousePhoto.setAttribute('width', '85');
-      pictureHousePhoto.setAttribute('height', '85');
+      pictureHousePhoto.setAttribute('width', '70');
+      pictureHousePhoto.setAttribute('height', '70');
       pictureHousePhoto.setAttribute('alt', 'Фотография жилья');
       pictureHousePhoto.src = reader.result;
     });
