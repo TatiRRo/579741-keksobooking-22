@@ -10,6 +10,14 @@ import {
 } from './map.js';
 import { createMessage } from './message.js';
 import { sendData } from './api.js';
+import { listHousePhotos, avatarPreview } from './avatar.js';
+
+const childrenListPhotos = listHousePhotos.children;
+const removeChildrenListPhotos = (elements) => {
+  [...elements].forEach((element) => {
+    element.remove();
+  });
+};
 
 const coordinateAdress = document.querySelector('#address');
 const adForm = document.querySelector('.ad-form');
@@ -45,10 +53,8 @@ const capacityGuests = document.querySelector('#capacity');
 inputPrice.placeholder = MIN_PRICE_FLAT;
 capacityGuests.value = mapRoomNumber['1'];
 
-
 inputPrice.setAttribute('max', MAX_PRICE);
 inputPrice.setAttribute('min', mapTypePrice.flat);
-
 
 inputTitle.setAttribute('required', 'required');
 inputTitle.setAttribute('minlength', MIN_LENGHT_INPUT);
@@ -67,7 +73,9 @@ const resetFiltersMap = () => {
     9,
   );
   map.closePopup();
-}
+  removeChildrenListPhotos(childrenListPhotos);
+  avatarPreview.src = 'img/muffin-grey.svg';
+};
 
 const calcRoomCapacity = () => {
   const selectedRoomNumber = roomNumber.value;
@@ -121,12 +129,11 @@ adForm.addEventListener('submit', (evt) => {
 
 adForm.addEventListener('reset', () => {
   setTimeout(() => {
-    setAddressValue(LAT_TOKYO, LNG_TOKYO)
+    setAddressValue(LAT_TOKYO, LNG_TOKYO);
     capacityGuests.value = mapRoomNumber['1'];
     inputPrice.placeholder = MIN_PRICE_FLAT;
   }, 0);
 });
-
 
 allTypeHouse.addEventListener('change', () => {
   const selectedTypeHouse = allTypeHouse.value;

@@ -9,6 +9,7 @@ import {
 import { hasSubArray } from './util.js';
 import { resetFiltersMap } from './form.js';
 
+
 const DEFAULT_FILTER_VALUE = 'any';
 const ROOM_MAX_PRICE = 50000;
 const ROOM_MIN_PRICE = 10000;
